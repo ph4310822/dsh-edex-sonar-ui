@@ -6,6 +6,7 @@
  * Static/sample content (the reference's markers are scenario contacts, not
  * host data), per the analysis's featured-widget decision.
  */
+import { Fragment } from 'react'
 import type { JSX } from 'react'
 import type { RightWidgetHooks } from '../../widgets/types.ts'
 import css from './SonarWidget.module.css'
@@ -42,6 +43,10 @@ function Sweep(): JSX.Element {
   const edge = polar(0, 1)
   return (
     <g className={css.sweep}>
+      {/* Invisible full-radius circle: makes the rotating group's bounding
+          box symmetric about the disc center, so the sweep pivots exactly
+          about the scope center (the MECHA-validated symmetric-bbox rule). */}
+      <circle cx={C} cy={C} r={RMAX} fill="none" opacity={0} />
       <path
         d={`M ${C} ${C} L ${C + RMAX} ${C} A ${RMAX} ${RMAX} 0 0 0 ${C + RMAX * Math.cos((-60 * Math.PI) / 180)} ${C + RMAX * Math.sin((-60 * Math.PI) / 180)} Z`}
         fill="url(#sonar-sweep-fill)"
@@ -126,16 +131,17 @@ export function SonarWidget(_hooks: RightWidgetHooks) {
           })}
           {/* Rotating sweep */}
           <Sweep />
-          {/* Contact markers: halo (blinking) + dot */}
+          {/* Contact markers: halo (blinking) + dot, direct SVG children so
+              the scope svg is their clipping parent */}
           {CONTACTS.map((contact, index) => {
             const p = polar(contact.brg, contact.rng)
             const color = toneColor(contact.tone)
             const halo = index === 0 ? css.haloA : index === 1 ? css.haloB : index === 2 ? css.haloC : undefined
             return (
-              <g key={`${contact.brg}-${index}`}>
+              <Fragment key={`${contact.brg}-${index}`}>
                 {halo !== undefined && <circle className={halo} cx={p.x} cy={p.y} r={7} fill="none" stroke={color} strokeWidth="1" />}
                 <circle cx={p.x} cy={p.y} r={2.5} fill={color} />
-              </g>
+              </Fragment>
             )
           })}
           {/* Own ship: pale diamond + bow tick at the center */}
