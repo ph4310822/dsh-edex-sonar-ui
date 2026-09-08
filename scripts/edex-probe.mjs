@@ -27,5 +27,5 @@ const info = await page.evaluate(() => {
   }
 })
 console.log('INFO', JSON.stringify(info, null, 1))
-await page.screenshot({ path: '/Users/daniel/workspace/dsh-edex-ui/probe-shot.png' })
+await page.screenshot({ path: './probe-shot.png' })
 await browser.close()
