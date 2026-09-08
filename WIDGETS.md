@@ -1,10 +1,20 @@
 # Widget Architecture
 
-The shell bars are composed of **self-contained, swappable widgets**. Each bar
-is a thin container that iterates a registry of widget slots; every widget
+The SONAR STATION shell bars are composed of **self-contained, swappable
+widgets** themed from the silent-abyss submarine sonar station reference. Each
+bar is a thin container that iterates a registry of widget slots; every widget
 owns its component, its styles, and the snapshot slices it renders. Replacing
 one means swapping a single registry entry (and its widget folder) without
 touching the rest of the bar.
+
+**The sonar registry** (left bar: TARGET ACOUSTIC INTEL `info`, MAIN DRIVE
+CONTROL `cpu`, CONTACT REGISTRY `processes`; right bar: SONAR STATUS
+`network-status`, TACTICAL SONAR `sonar` — the featured widget replacing the
+WORLD VIEW globe — BROADBAND WATERFALL `traffic`; bottom bar: filesystem
+browser, PREVIEW, TERMINAL). The `sonar` widget (`SonarWidget.tsx`) renders the
+circular scope — range rings, bearing spokes, a rotating turquoise sweep with a
+symmetric bounding-box circle, teal-green/cyan/amber contact markers, and a
+pale own-ship icon — as static sample content per the reference.
 
 The three bars share one parent wrapper — `WidgetSection` — so every widget
 gets the same chrome: an optional amber **title**, the **border** divider, and
