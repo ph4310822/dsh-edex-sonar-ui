@@ -7,9 +7,9 @@ plugins with a browser (client) half, and plugins that expose a Typert Remote
 RPC surface, and it documents the pitfalls that are otherwise only discoverable
 by trial and error.
 
-The [dsh-x402-wallet](https://github.com/ph4310822/dsh-x402-wallet) repository
-is the worked example: its `packages/` and `scripts/` implement everything
-described here.
+The [dsh-edex-sonar-ui](https://github.com/ph4310822/dsh-edex-sonar-ui)
+repository (this checkout — the SONAR STATION eDEX theme) is the worked
+example: its `packages/` and `scripts/` implement everything described here.
 
 ## Concepts in one paragraph
 
