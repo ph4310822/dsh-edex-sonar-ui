@@ -1,0 +1,59 @@
+/* CONTACT REGISTRY widget: classified contact rows (PID → track id,
+   process → classification), amber classified tones, and the loadavg
+   footer restyled as the broadband noise floor line. */
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.body::-webkit-scrollbar {
+  display: none;
+}
+
+.procTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.procTable th {
+  text-align: left;
+  color: var(--edex-dim);
+  font-weight: normal;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--edex-hairline);
+  letter-spacing: 1px;
+  font-size: 9px;
+}
+
+.procTable td {
+  padding: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid var(--edex-hairline);
+}
+
+.procName {
+  max-width: 0;
+  width: 100%;
+  color: var(--edex-green);
+}
+
+.num {
+  text-align: right;
+  width: 48px;
+  color: var(--edex-green-sig);
+}
+
+.foot {
+  margin: auto -12px -10px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--edex-border);
+}
+
+.footText {
+  color: var(--edex-dim);
+}

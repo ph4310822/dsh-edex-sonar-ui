@@ -1,0 +1,41 @@
+/* BROADBAND WATERFALL widget: dual up/down traces rendered as the ambient
+   acoustic display — blue-white #74CEFF down trace, BTR-green up trace,
+   over the near-black plot field with a hairline frame. */
+
+.trafficHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.key {
+  color: var(--edex-dim);
+}
+
+/* The chart fills the widget's leftover height (the fill section flex-fills
+   the bar); the SVG fills the chart wrapper, with a 1:1 viewBox measured by
+   ResizeObserver. The plot field is the reference's near-black recorder
+   background, framed by a hairline. */
+.trafficChart {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: #040606;
+  border: 1px solid var(--edex-hairline);
+  padding: 2px;
+}
+
+.traffic {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--edex-cyan);
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--edex-cyan) 55%, transparent));
+}
+
+/* The upload trace stays in the BTR recorder green (analysis
+   semanticColors.success) while the download trace is the waterfall blue. */
+.trafficUp {
+  stroke: var(--edex-green-sig);
+}

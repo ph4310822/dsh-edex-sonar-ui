@@ -1,0 +1,207 @@
+/* eDEX shell frame: fixed full-viewport layer tiling the top panel and
+   left/right bars around the original UI (which the reshape effect squeezes
+   into the center region), with the bottom widget panel below. Self-contained
+   SONAR STATION skin: near-black blue-teal canvas (#060B10) that is DARKER
+   than the widget cards (#141F26), 1px blue-gray #2C4853 card rules at 0px
+   radius, pale cyan #8ED5DF phosphor text, and a fine scanline texture over
+   the whole surface. */
+
+.shell {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  /* The overlay layer makes direct children interactive by default; the shell
+     is click-through everywhere except the panel cells below. */
+  pointer-events: none;
+
+  --edex-bg: #060b10;
+  --edex-panel: #060b10;
+  --edex-panel-2: #141f26;
+  --edex-border: #2c4853;
+  --edex-green: #8ed5df;
+  --edex-dim: #4e929b;
+  --edex-amber: #facd78;
+  --edex-red: #e54344;
+  --edex-cyan: #74ceff;
+  --edex-green-sig: #03e877;
+  --edex-active: #00e6d0;
+  --edex-titleband: #18222a;
+  --edex-hairline: #22323c;
+  --edex-topedge: #3e6570;
+  --edex-font: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, Menlo, monospace;
+
+  /* The top panel is empty, so it takes no space: the bars and center region
+     tile from the very top edge. Raise this to give the panel a height again
+     when it hosts content. */
+  --edex-topbar-h: 0px;
+
+  /* The center workspace chrome: 1px frame + 19px title strip = this inset;
+     the reshaped layout frame starts below the strip so nothing is covered. */
+  --edex-center-inset: 20px;
+
+  font-family: var(--edex-font);
+  color: var(--edex-green);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.leftBar {
+  position: absolute;
+  left: 0;
+  /* Bottom-anchored above the bottom bar (top edge at the viewport top). */
+  top: var(--edex-topbar-h);
+  bottom: 36vh;
+  width: 17vw;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--edex-panel);
+  overflow: hidden;
+}
+
+.rightBar {
+  position: absolute;
+  right: 0;
+  top: var(--edex-topbar-h);
+  bottom: 36vh;
+  width: 21.25vw;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--edex-panel);
+  overflow: hidden;
+}
+
+/* The bottom bar: one strip hosting the three bottom widgets (filesystem
+   browser, file preview/editor, host terminal) as widget sections. */
+.bottomBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36vh;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--edex-panel);
+  overflow: hidden;
+}
+
+/* The empty top panel: a full-width strip overlaying the shell's top edge
+   above every other layer (left/right bars and the center region start below
+   it). Click-through until it hosts interactive content. */
+.topPanel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--edex-topbar-h);
+  z-index: 40;
+  pointer-events: none;
+  background: var(--edex-panel);
+}
+
+/* Fine sonar-scanline texture on the panel cells (cyan phosphor tint). */
+.leftBar::after,
+.rightBar::after,
+.bottomBar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    color-mix(in srgb, var(--edex-green) 4%, transparent) 3px
+  );
+}
+
+/* The center region wrapper: hosts the ORIGINAL UI area inside the same
+   widget chrome as the shell bars. The container carries the card frame
+   (1px #2C4853, brighter top edge) and the SONAR WORKSPACE title strip; the
+   WidgetSection inside stays fully transparent (the workspace must never be
+   occluded). Click-through so the original UI stays interactive. */
+.centerWidget {
+  position: absolute;
+  left: 17vw;
+  right: 21.25vw;
+  top: var(--edex-topbar-h);
+  bottom: 36vh;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: 1px solid var(--edex-border);
+  border-top-color: var(--edex-topedge);
+}
+
+/* The workspace title strip: same band treatment as the widget title bars
+   (band fill + hairline bottom + pale cyan tracked mono label). */
+.centerTitle {
+  flex: none;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  background: var(--edex-titleband);
+  border-bottom: 1px solid var(--edex-hairline);
+  color: var(--edex-green);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* The same texture over the center region (the original UI), so the whole
+   canvas reads as one surface; fills the center widget, click-through. */
+.centerScanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    color-mix(in srgb, var(--edex-green) 4%, transparent) 3px
+  );
+}
+
+/* Terminal path prompt at the LEFT edge of the composer input: `~/<folder>`
+   on the same line as the textarea (classic `$ cwd` style). Injected by
+   EdexShell inside the draft scrollport, before the text stack;
+   TerminalComposer.module.css makes the scrollport a flex row so this element
+   (flex: none) sits beside the input (flex: 1). Metrics align it with the
+   textarea's first line: the input text starts at 16px left / 4px top padding,
+   so the prompt mirrors that inset. */
+.pathPrompt {
+  flex: none;
+  padding: 4px 0 0 16px;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--edex-amber);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Fullscreen toggle button injected into the sidebar workspace header
+   (EdexShell's DOM injector): the same 28px icon-control footprint as the
+   stock header buttons, themed by TerminalSidebar.module.css via
+   [data-edex-fullscreen]. */
+.fullscreenBtn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  background: transparent;
+  color: var(--edex-green);
+  font-family: var(--edex-font);
+  cursor: pointer;
+}

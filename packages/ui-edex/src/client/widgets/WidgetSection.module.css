@@ -1,0 +1,72 @@
+/* Shared widget section chrome: the sonar-station instrument card — a 1px
+   #2C4853 blue-gray rectangle at 0px radius over the #141F26 card surface,
+   with a brighter top-edge rule and a #18222A title band under a hairline.
+   Cards float 4-8px apart on the near-black canvas. The center slot carries
+   NO card chrome: it hosts the original UI (transparent reset below). */
+
+.section {
+  padding: 10px 12px;
+  margin: 4px 5px;
+  background: var(--edex-panel-2);
+  border: 1px solid var(--edex-border);
+  border-top-color: var(--edex-topedge);
+  border-radius: 0;
+}
+
+.title {
+  color: var(--edex-green);
+  letter-spacing: 2px;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin: -10px -12px 8px;
+  padding: 3px 12px 2px;
+  background: var(--edex-titleband);
+  border-bottom: 1px solid var(--edex-hairline);
+}
+
+/* Flex-fill the bar's leftover height (screen − other sections). */
+.fill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Tight padding for full-bleed widgets (the sonar scope). */
+.compact {
+  padding: 2px 4px;
+}
+
+/* Zero the chrome padding so the widget body owns all inner spacing
+   (full-bleed bottom widgets like the file list and terminal). */
+.bleed {
+  padding: 0;
+}
+
+/* Keep the section heading inset from the card edges when the section body
+   is compact (the sonar scope) or bleed (bottom widgets). The title padding
+   compensates the section's own padding so every title text lands at the
+   same inset as the default sections (10px top, 12px sides):
+   compact section = 2px/4px → title 7px/6px; bleed section = 0 → 3px/12px. */
+.compact .title {
+  margin: -2px -4px 6px;
+  padding: 5px 6px 2px;
+}
+
+.bleed .title {
+  margin: 0;
+  padding: 3px 12px;
+}
+
+/* The CENTER slot hosts the original DSH workspace: it must never carry the
+   card chrome (an opaque fill or border here paints over the working area).
+   Reset everything to transparent/none — the chrome lives on the center
+   CONTAINER (EdexShell's .centerWidget + .centerTitle) instead. */
+.section[data-widget='center'] {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}

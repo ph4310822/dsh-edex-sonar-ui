@@ -1,0 +1,62 @@
+/* TACTICAL SONAR widget: the sonar-station scope — near-black teal plot
+   field, perspective range rings in dark blue-gray, bearing spokes and tick
+   marks, the rotating turquoise bearing sweep (leading edge bright
+   #00E6D0), teal-green/cyan/amber contact markers, and a pale own-ship icon
+   at the center. */
+
+.scopeHost {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 140px;
+}
+
+/* The scope SVG: square viewBox, CSS-scaled to the pane width. */
+.scopeHost svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 320px;
+}
+
+/* Rotating bearing sweep: pivots about the viewBox center (the disc is
+   centered, so view-box origin == disc center); 6s per revolution, linear. */
+.sweep {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: sonar-sweep 6s linear infinite;
+}
+
+@keyframes sonar-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Contact marker blinks: opacity-only, staggered per marker. */
+.haloA { animation: sonar-blink 2.2s ease-in-out infinite alternate; }
+.haloB { animation: sonar-blink 2.2s ease-in-out infinite alternate 0.7s; }
+.haloC { animation: sonar-blink 2.2s ease-in-out infinite alternate 1.4s; }
+
+@keyframes sonar-blink {
+  from { opacity: 0.18; }
+  to { opacity: 0.55; }
+}
+
+/* Sample contact readout pinned under the scope. */
+.readout {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--edex-hairline);
+  font-size: 9px;
+  color: var(--edex-dim);
+  letter-spacing: 1px;
+}
+
+.readout b {
+  color: var(--edex-green-sig);
+  font-weight: normal;
+}

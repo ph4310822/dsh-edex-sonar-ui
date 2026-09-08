@@ -1,0 +1,33 @@
+/* SONAR STATUS widget: the station status block — mode/state/track readouts
+   with the dim caption keys, plus the green PASSIVE MODE state pip. */
+
+.specLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 1px 0;
+}
+
+.key {
+  color: var(--edex-dim);
+}
+
+.modeLine {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+  color: var(--edex-green-sig);
+}
+
+.modePip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--edex-green-sig);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--edex-green-sig) 70%, transparent);
+  flex: none;
+}

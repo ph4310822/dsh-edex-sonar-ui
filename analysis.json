@@ -1,0 +1,137 @@
+{
+  "metadata": {
+    "filename": "sonar-silent-abyss",
+    "url": "https://idgmatrix.github.io/silent-abyss/",
+    "source": "vision",
+    "direction": "submarine sonar station",
+    "query": "sonar visualization web app dark theme",
+    "referenceShot": "reference-shot.png",
+    "analysisDate": "2026-09-09",
+    "method": "vision_glance (gpt-5.5 via scripts/vision-call-file.sh, native tools 503) + vision_dominant_colors regions + pixel-exact BMP measurement (analyze-ui.py + targeted scans)"
+  },
+  "theme": {
+    "background": "#060B10",
+    "panelTone": "#141F26",
+    "primaryAccent": "#8ED5DF",
+    "secondaryAccent": "#4E929B",
+    "textPrimary": "#C9D6D8",
+    "textSecondary": "#5C7684",
+    "semanticColors": {
+      "success": "#03E877",
+      "warn": "#FACD78",
+      "error": "#E54344",
+      "info": "#74CEFF"
+    },
+    "glowColor": "#00E6D0",
+    "notes": [
+      "Canvas #060B10 (measured page gutter #02070C-#070D12 with scanline/noise texture) is DARKER than the panels — inverse of typical dark dashboards.",
+      "Panel/card fill measured #121F23 (center), #161F26 (left column), #172129 (right column) — representative #141F26.",
+      "Widget title bands #18222A with a 1px brighter top rule #304C55 and pale-cyan uppercase tracked mono titles (measured modal #7AC0C7, bright #A9D6DC — parent-validated #8ED5DF sits inside this bracket).",
+      "Semantic greens: BTR recorder lines modal #07F00A / bright avg #03E877 (success); tactical contact markers are a distinct teal-green #22D083 used inside the sonar scope itself.",
+      "Amber modal #FACD78 (DEMON traces, status text); reds #E54344 (left column ping) / #D66566-#EB6D6E (right column buttons) — representative #E54344.",
+      "Waterfall blue-white modal #83DAFF, bright scan #74CEFF (info blue).",
+      "Bright turquoise #00E6D0 is the most prominent analytical accent on active traces/selected modes."
+    ]
+  },
+  "borderFeatures": {
+    "frame": {
+      "presence": "full",
+      "style": "solid",
+      "widthPx": 1,
+      "color": "#2C4853",
+      "cornerRadiusPx": 0,
+      "glow": null,
+      "notes": "Page canvas is near-black blue #060B10 with fine horizontal scanlines + dotted noise; panels are separated by 4-8px gutters; each panel is a closed 1px #2C4853 rectangle (measured exact single-pixel runs at y=120 x=200 -> #304C55, x=396 y=650 -> #2C4853, x=1190 y=650 -> #2C4751). 0px radius everywhere. Title bands carry a slightly brighter top edge."
+    },
+    "cards": {
+      "presence": "full",
+      "style": "solid",
+      "widthPx": 1,
+      "color": "#2C4853",
+      "cornerRadiusPx": 0,
+      "glow": { "color": "#00E6D0", "blurPx": 6, "intensity": "subtle" },
+      "notes": "Per-widget card treatment: 1px #2C4853 full rectangle, 0 radius, fill #141F26; title strip fill #18222A (~24px) separated from content by a hairline, with a brighter cyan top-edge accent; small uppercase monospaced tracked titles in pale cyan. Subtle glow only on plot content (traces/markers), never on the card chrome itself."
+    },
+    "dividers": {
+      "presence": "full",
+      "style": "solid",
+      "widthPx": 1,
+      "color": "#22323C",
+      "cornerRadiusPx": 0,
+      "glow": null,
+      "notes": "Thin darker hairlines (#1F2A32-#22323C) divide data groups, list rows, control areas and separate the title band from content."
+    },
+    "inputs": {
+      "presence": "full",
+      "style": "solid",
+      "widthPx": 1,
+      "color": "#2C4853",
+      "cornerRadiusPx": 0,
+      "glow": null,
+      "notes": "Square compact military-console controls: 1px #2C4853 outlines, dark fills ~#0F151E, small mono labels; selected/checked controls take the bright turquoise #00E6D0 or blue #74CEFF emphasis."
+    },
+    "activeIndicators": {
+      "presence": "partial-top",
+      "style": "solid",
+      "widthPx": 2,
+      "color": "#00E6D0",
+      "cornerRadiusPx": 0,
+      "glow": { "color": "#00E6D0", "blurPx": 6, "intensity": "subtle" },
+      "notes": "Active/selected items are marked by brighter cyan-teal top/edge emphasis (brighter top rule on title bands, selected mode buttons, active traces) rather than left accent bars."
+    }
+  },
+  "layout": {
+    "regions": [
+      { "name": "commandBar", "topBar": true, "description": "Full-width command bar (~12% height, y<108): station title SILENT ABYSS // TACTICAL centered, left maneuver controls, center propulsion controls, right visualization toggles + SONAR STATUS (PASSIVE MODE + mission timer). Fill #151E25, 1px bottom rule." },
+      { "name": "leftColumn", "leftBar": true, "description": "~25% width stack: MAIN DRIVE CONTROL, TARGET ACOUSTIC INTELLIGENCE, LOFAR (NARROWBAND FREQUENCY), DEMON (PROPELLER SIGNATURE)." },
+      { "name": "centerColumn", "centerBar": true, "description": "~50% width: large tactical 3D sonar view (perspective grid, own-ship icon, green/cyan contact markers, circular compass top-right), WATER COLUMN depth gauge docked right, BTR (BEARING TIME RECORDER) below." },
+      { "name": "rightColumn", "rightBar": true, "description": "~25% width stack: CONTACT REGISTRY (filter/sort + contact rows + PIN/ALIAS/RENAME + red CLEAR LOST CONTACTS), MANUAL SOLUTION (bearing/range/course/speed fields + SAVE SOLUTION), CAMPAIGN (selector, IN PROGRESS status, checklist), BROADBAND WATERFALL (AMBIENT)." }
+    ]
+  },
+  "keyElements": [
+    { "type": "sonar-scope", "description": "Large tactical 3D sonar view: near-black teal field #0A141A, perspective wireframe grid in dark teal, own-ship icon lower center, green #22D083 and cyan contact markers, pale target marker, circular compass/instrument upper-right, scanline + noise texture", "region": "centerColumn" },
+    { "type": "compass", "description": "Circular compass dial with pale cyan ticks + heading readout, upper-right of the tactical view", "region": "centerColumn" },
+    { "type": "waterfall", "description": "BTR bearing-time recorder: black plot field, repeated vertical green #03E877 + cyan event lines, time scale on top", "region": "centerColumn" },
+    { "type": "spectrum", "description": "LOFAR narrowband spectrogram: black field with grid markings, bright cyan noisy trace concentrated near the bottom", "region": "leftColumn" },
+    { "type": "plot", "description": "DEMON propeller-signature plot with amber #FACD78 and cyan traces, S1/S2/S3 markers, auto-analysis text in cyan/white/amber", "region": "leftColumn" },
+    { "type": "table", "description": "CONTACT REGISTRY: compact bordered list rows, contact IDs + classification + bearing + range, action buttons", "region": "rightColumn" },
+    { "type": "waterfall", "description": "BROADBAND WATERFALL: dense blue-white #83DAFF vertical noise texture spectrogram", "region": "rightColumn" },
+    { "type": "status", "description": "SONAR STATUS block: PASSIVE MODE + running mission timer, green/amber state pips", "region": "commandBar" },
+    { "type": "texture", "description": "Full-page scanline overlay + dotted noise; panel interiors slightly lighter than the page canvas", "region": "page" }
+  ],
+  "widgets": {
+    "reference": [
+      { "name": "MAIN DRIVE CONTROL", "type": "gauges", "region": "leftColumn", "description": "OWN SHIP RPM gauge + throttle slider + red ACTIVE PULSE (PING) action area" },
+      { "name": "TARGET ACOUSTIC INTELLIGENCE", "type": "readouts", "region": "leftColumn", "description": "Target ID / range / velocity / bearing / confidence key-value readouts, dashes for empty values" },
+      { "name": "LOFAR (NARROWBAND FREQUENCY)", "type": "spectrum", "region": "leftColumn", "description": "Black spectrogram, cyan narrowband trace, freq/time grid" },
+      { "name": "DEMON (PROPELLER SIGNATURE)", "type": "plot", "region": "leftColumn", "description": "Amber+cyan waveform, blade markers, analysis text" },
+      { "name": "TACTICAL 3D SONAR VIEW", "type": "radar", "region": "centerColumn", "description": "Perspective 3D grid sonar scope with contact markers, own-ship icon, compass dial" },
+      { "name": "WATER COLUMN", "type": "gauge", "region": "centerColumn", "description": "Vertical depth/profile plot with cyan+amber traces" },
+      { "name": "BTR (BEARING TIME RECORDER)", "type": "waterfall", "region": "centerColumn", "description": "Green/cyan vertical event lines over time" },
+      { "name": "CONTACT REGISTRY", "type": "table", "region": "rightColumn", "description": "Contact rows with ID/class/bearing/range + row actions" },
+      { "name": "MANUAL SOLUTION", "type": "form", "region": "rightColumn", "description": "Bearing/range/course/speed fields + solution readout" },
+      { "name": "CAMPAIGN", "type": "checklist", "region": "rightColumn", "description": "Campaign selector + status + mission checklist" },
+      { "name": "BROADBAND WATERFALL (AMBIENT)", "type": "waterfall", "region": "rightColumn", "description": "Blue-white ambient noise spectrogram" },
+      { "name": "SONAR STATUS", "type": "status", "region": "commandBar", "description": "PASSIVE MODE + mission timer status rows" }
+    ],
+    "matches": [
+      { "reference": "MAIN DRIVE CONTROL", "slot": "cpu", "match": "partial", "note": "cpu gauges -> RPM-style gauge + throttle readout, keeps usePanel metrics" },
+      { "reference": "TARGET ACOUSTIC INTELLIGENCE", "slot": "info", "match": "partial", "note": "info key-values -> target intelligence readouts from panel data" },
+      { "reference": "CONTACT REGISTRY", "slot": "processes", "match": "partial", "note": "process list -> contact registry rows styled as classified contacts" },
+      { "reference": "SONAR STATUS", "slot": "network-status", "match": "partial", "note": "network status -> sonar status (PASSIVE MODE, timer, state pips)" },
+      { "reference": "BROADBAND WATERFALL (AMBIENT)", "slot": "traffic", "match": "partial", "note": "traffic graph -> blue-white broadband waterfall fed by traffic data" },
+      { "reference": "LOFAR (NARROWBAND FREQUENCY)", "slot": null, "match": null, "note": "no eDEX counterpart; left unmatched" },
+      { "reference": "DEMON (PROPELLER SIGNATURE)", "slot": null, "match": null, "note": "no eDEX counterpart; left unmatched" },
+      { "reference": "WATER COLUMN", "slot": null, "match": null, "note": "no eDEX counterpart; left unmatched" },
+      { "reference": "BTR (BEARING TIME RECORDER)", "slot": null, "match": null, "note": "no eDEX counterpart; left unmatched" },
+      { "reference": "CAMPAIGN", "slot": null, "match": null, "note": "no eDEX counterpart; left unmatched" },
+      { "reference": "MANUAL SOLUTION", "slot": null, "match": null, "note": "no eDEX counterpart; left unmatched" }
+    ],
+    "featured": {
+      "reference": "TACTICAL 3D SONAR VIEW",
+      "name": "TACTICAL SONAR",
+      "slot": "sonar",
+      "description": "Replaces the WORLD VIEW globe: perspective-ring sonar scope with rotating bearing sweep, teal-green/cyan contact markers, own-ship icon, compass ring, scanline texture — the reference's signature widget."
+    }
+  }
+}
